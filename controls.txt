@@ -1,0 +1,79 @@
+===============================================================================
+  LOW BLOW  //  KICK / BASS DUCKER  //  Castle Danger Music Company
+===============================================================================
+
+Kick and bass fight over the same low end. Low Blow goes on the BASS track and
+listens to the KICK on its sidechain input: every kick hit pulls the bass's low
+end down for a moment, so the kick punches through and the bass fills the gaps.
+
+
+SETTING IT UP
+-------------
+1. Put Low Blow on your bass track (after the amp sim / EQ, before any bus).
+2. Send the kick to Low Blow's sidechain input:
+     Fender Studio Pro: open Low Blow's window, click the sidechain button in
+       the plugin header and pick your kick track (or add a send on the kick
+       channel and choose "Low Blow" as the destination).
+     Logic: the Side Chain menu at the top of the plugin window.
+     Ableton, Reaper, Cubase: route the kick to the plugin's sidechain input.
+   On a drum bus or a stereo kick, either works.
+3. KICK ON THE SIDECHAIN lights up green with the number of hits a minute.
+   Until then Low Blow leaves the bass alone.
+
+
+THE RING (the scope, last 4 seconds)
+------------------------------------
+  Grey ......... the bass, as it comes out
+  Red line ..... the kick on the sidechain; red ticks = hits
+  Yellow ....... how far the bass is ducked, hanging from the top
+                 (dashed line = DEPTH)
+
+
+THE HIT
+-------
+  DEPTH ........ how far the bass goes down on each kick (0-24 dB).
+                 4-8 dB clears room; 10+ gives a pumping effect.
+  ATTACK ....... how fast it gets out of the way (0.1-20 ms). Short.
+  HOLD ......... how long it stays down after the kick fades (0-150 ms)
+  RELEASE ...... how fast it comes back (10-500 ms). Short for fast double
+                 kicks, longer for a smooth or pumping feel.
+  SENSITIVITY .. which hits count. The trigger follows your loudest recent
+                 kicks, so you never set a threshold: higher also catches
+                 soft hits and ghost notes, lower only the big ones.
+
+WHERE
+-----
+  LOWS ONLY .... ducks only the bass below CROSSOVER, so its growl, pick
+                 attack and upper notes stay put (recommended)
+  FULL ......... ducks the whole bass
+  CROSSOVER .... 40-300 Hz. Just above the kick's thump: 80-150 Hz is usual.
+  LOOKAHEAD .... 0-5 ms. Starts the duck a hair before the kick lands. Adds
+                 the same latency; your DAW compensates.
+  OUTPUT ....... -12 to +12 dB
+
+METERS
+------
+  KICK ......... sidechain level; the label lights on every hit
+  DUCK ......... how far the bass is down right now (white line = peak,
+                 grey line = DEPTH)
+  LISTEN ....... hear only what Low Blow is taking out of the bass. Turn it
+                 off before you bounce. (Never saved in a preset.)
+
+
+WITH THE MASTER
+---------------
+Low Blow talks to The Master over Castle Danger Link. With The Servant on your
+kick and bass (ROLE Kick and Bass), The Master works out how much they fight
+in the low end and, at APPLY, sets Low Blow's DEPTH (from the genre and how
+much they overlap), CROSSOVER (above where the kick's thump sits) and RELEASE
+(from the gap between your kick hits, so it's back before the next one).
+Without Low Blow, The Master suggests it when kick and bass collide. If the
+sidechain isn't connected, The Master says so in its log.
+
+
+PRESETS
+-------
+Factory presets for metal double kick, rock, punk, pop, gentle clearance,
+sub only, full ducking and a pumping effect. SAVE stores your own in
+  macOS:   ~/Library/Application Support/Castle Danger/Low Blow/Presets
+  Windows: %APPDATA%\Castle Danger\Low Blow\Presets
