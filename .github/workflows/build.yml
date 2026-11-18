@@ -48,7 +48,7 @@ jobs:
             cmake -B build -DCMAKE_BUILD_TYPE=Release
           fi
       - name: Build
-        run: cmake --build build --config Release --target LowBlow_VST3 LowBlow_Standalone
+        run: cmake --build build --config Release --target LowBlow_VST3
       - name: Build AU (macOS)
         if: runner.os == 'macOS'
         run: cmake --build build --config Release --target LowBlow_AU
@@ -57,7 +57,7 @@ jobs:
         shell: bash
         run: |
           set -e
-          for b in build/*_artefacts/Release/VST3/*.vst3 build/*_artefacts/Release/AU/*.component build/*_artefacts/Release/Standalone/*.app; do
+          for b in build/*_artefacts/Release/VST3/*.vst3 build/*_artefacts/Release/AU/*.component; do
             [ -e "$b" ] || continue
             n=$(basename "$b"); n="${n%.*}"
             bin="$b/Contents/MacOS/$n"
@@ -73,15 +73,13 @@ jobs:
           OS=$([ "$RUNNER_OS" = "macOS" ] && echo macOS || echo Windows)
           ZIP="LowBlow-v${VER}-${OS}.zip"
           R=build/LowBlow_artefacts/Release
-          mkdir -p pkg/LowBlow/VST3 pkg/LowBlow/Standalone
+          mkdir -p pkg/LowBlow/VST3
           cp readme.txt controls.txt LICENSE.txt THIRD-PARTY-NOTICES.txt pkg/LowBlow/
           cp -R "$R/VST3/Low Blow.vst3" pkg/LowBlow/VST3/
           if [ "$OS" = "macOS" ]; then
             mkdir -p pkg/LowBlow/AU && cp -R "$R/AU/Low Blow.component" pkg/LowBlow/AU/
-            cp -R "$R/Standalone/Low Blow.app" pkg/LowBlow/Standalone/
             (cd pkg && ditto -c -k --sequesterRsrc --keepParent LowBlow "../$ZIP")
           else
-            cp "$R/Standalone/Low Blow.exe" pkg/LowBlow/Standalone/
             (cd pkg && 7z a -tzip -mx=9 "../$ZIP" LowBlow > /dev/null)   # 7z writes forward-slash paths
           fi
           ls -la "$ZIP"
@@ -102,4 +100,3 @@ jobs:
             THIRD-PARTY-NOTICES.txt
             build/LowBlow_artefacts/Release/VST3
             build/LowBlow_artefacts/Release/AU
-            build/LowBlow_artefacts/Release/Standalone
