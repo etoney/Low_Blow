@@ -665,6 +665,7 @@ LowBlowEditor::LowBlowEditor (LowBlowProcessor& p)
     deleteButton.onClick = [this] { confirmDelete(); };
 
     refreshPresetBox();
+    addAndMakeVisible (rebel);
     setSize (940, 600);
     startTimerHz (30);
 }
@@ -718,6 +719,7 @@ void LowBlowEditor::resized()
     deleteButton.setBounds (856, 70, 68, 24);
     stripeArea = { 0, 110, getWidth(), 10 };
     linkArea = { 300, 84, 150, 14 };
+    rebel.setBounds (linkArea.getX(), linkArea.getCentreY() - 8, 54, 16);
 
     plates.push_back ({ "THE RING", { 16, 130, 908, 214 } });
     scope.setBounds (28, 154, 884, 180);
@@ -947,12 +949,13 @@ void LowBlowEditor::paint (juce::Graphics& g)
         auto& lk = proc.getLink();
         const bool linked = lk.masterNearby();
         const bool justSet = lk.getLastNoteTime() > 0 && juce::Time::getMillisecondCounter() - lk.getLastNoteTime() < 6000;
-        auto r = linkArea.toFloat();
-        const auto col = justSet ? pal::signalHot : (linked ? pal::hazard : pal::paintDim.withAlpha (0.35f));
+        const bool rebelOn = lk.isRebel();
+        auto r = linkArea.toFloat().withTrimmedLeft (60);   // REBEL sits first on the line
+        const auto col = rebelOn ? pal::signal : (justSet ? pal::signalHot : (linked ? pal::hazard : pal::paintDim.withAlpha (0.35f)));
         if (linked) { juce::Path lp; lp.addEllipse (r.getX(), r.getCentreY() - 3.5f, 7, 7); juce::DropShadow (col.withAlpha (0.8f), 6, {}).drawForPath (g, lp); }
         g.setColour (col); g.fillEllipse (r.getX(), r.getCentreY() - 3.5f, 7, 7);
         g.setFont (tex::plainBold (9.5f).withExtraKerningFactor (0.1f));
-        g.drawText (justSet ? "SET BY THE MASTER" : (linked ? "LINKED TO THE MASTER" : "LINK"), r.withTrimmedLeft (11).toNearestInt(), juce::Justification::centredLeft);
+        g.drawText (rebelOn ? "HANDS OFF" : (justSet ? "JUST SET" : (linked ? "LINKED" : "LINK")), r.withTrimmedLeft (11).toNearestInt(), juce::Justification::centredLeft);
     }
 }
 

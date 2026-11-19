@@ -77,3 +77,8 @@ Factory presets for metal double kick, rock, punk, pop, gentle clearance,
 sub only, full ducking and a pumping effect. SAVE stores your own in
   macOS:   ~/Library/Application Support/Castle Danger/Low Blow/Presets
   Windows: %APPDATA%\Castle Danger\Low Blow\Presets
+
+REBEL  (next to the link lamp)
+  On: The Master keeps its hands off this plugin. Nothing it sends changes a setting here; it still
+  hears what the plugin does and plans the rest of the mix around it. Saved with the project; presets
+  never change it. Turn it off to let The Master run the plugin again.

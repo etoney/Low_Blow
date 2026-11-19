@@ -1,4 +1,5 @@
 #include "PluginProcessor.h"
+#include "Rebel.h"
 #include "PluginEditor.h"
 
 #ifndef JucePlugin_VersionString
@@ -57,6 +58,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout LowBlowProcessor::createLayo
     p.push_back (std::make_unique<AudioParameterFloat> (ParameterID { "lookahead", 1 }, "Lookahead", NormalisableRange<float> (0.0f, 5.0f, 0.1f), 1.0f, msAttr));
     p.push_back (std::make_unique<AudioParameterFloat> (ParameterID { "output", 1 }, "Output", NormalisableRange<float> (-12.0f, 12.0f, 0.1f), 0.0f, dbAttr));
     p.push_back (std::make_unique<AudioParameterBool> (ParameterID { "listen", 1 }, "Listen (What's Taken Out)", false));
+    p.push_back (cdrebel::makeParam());
     return { p.begin(), p.end() };
 }
 
@@ -134,7 +136,7 @@ void LowBlowProcessor::resetToDefaults()
 {
     for (auto* p : getParameters())
         if (auto* rp = dynamic_cast<juce::RangedAudioParameter*> (p))
-            rp->setValueNotifyingHost (rp->getDefaultValue());
+            if (rp->getParameterID() != "rebel") rp->setValueNotifyingHost (rp->getDefaultValue());   // a preset never changes REBEL
 }
 
 void LowBlowProcessor::setCurrentProgram (int index)
